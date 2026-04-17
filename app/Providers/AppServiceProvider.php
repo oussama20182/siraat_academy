@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL; // هذا هو المكان الصحيح لها
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // فرض استخدام https فقط عندما يكون الموقع مرفوعاً (production)
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
